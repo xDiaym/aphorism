@@ -1,0 +1,11 @@
+# IDE
+/.idea
+
+# Testing, linting, etc.
+/.mypy_cache
+/.pytest_cache
+/.venv
+
+# Python cache
+**__pycache__
+*.pyc
