@@ -13,3 +13,6 @@ insert_final_newline = true
 
 [*.py]
 trim_trailing_whitespace = true
+
+[*.yml]
+indent_size = 2

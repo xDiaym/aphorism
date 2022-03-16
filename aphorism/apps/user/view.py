@@ -1,8 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, Response
 
 user = Blueprint("user", __name__)
 
 
-@user.get("/<name>")
-def get_user(name: str) -> str:
-    return name
+@user.get("/<slug>")
+def get_user(slug: str) -> str:
+    return slug
