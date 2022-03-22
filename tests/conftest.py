@@ -22,4 +22,3 @@ def database(app):
         db.drop_all()
         db.create_all()
     return db
-

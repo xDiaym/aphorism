@@ -29,3 +29,7 @@ def test_register_new_user(client: FlaskClient, user: dict[str, str]) -> None:
     # TODO: assert token
 
 
+def test_user_already_exist(client: FlaskClient, user: dict[str, str]) -> None:
+    register_user(client, data=json.dumps(user))
+    response = register_user(client, data=json.dumps(user))
+    assert response.status_code == int(HTTPStatus.CONFLICT)
