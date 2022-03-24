@@ -5,7 +5,7 @@ from flask_restx import abort
 from aphorism import db
 
 from aphorism.apps.user import logger
-from aphorism.apps.user.model import User
+from aphorism.apps.user.model import User, TokenBlockList
 
 
 def register_user(name: str, slug: str, email: str, password: str) -> Response:
@@ -18,11 +18,20 @@ def register_user(name: str, slug: str, email: str, password: str) -> Response:
     new_user = User(name=name, slug=slug, email=email, password=password)
     db.session.add(new_user)
     db.session.commit()
+    # FIXME: SRP violation
     logger.info("User(id=%i) registered", new_user.id)
     return _create_token_response(
         HTTPStatus.CREATED,
         new_user.create_new_token(),
     )
+
+
+def revoke_token(token_payload: dict[str, str]) -> Response:
+    jti = token_payload["jti"]
+    db.session.add(TokenBlockList(jti=jti))
+    db.session.commit()
+    logger.info("Token of User(id=%i) revoked", token_payload["sub"])
+    return jsonify(message="Token revoked")
 
 
 def _create_token_response(status_code: int, token: str) -> Response:

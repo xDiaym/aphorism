@@ -21,3 +21,8 @@ class User(db.Model):
     @classmethod
     def find_by_slug(cls, slug: str) -> "User | None":
         return cls.query.filter_by(slug=slug).first()
+
+
+class TokenBlockList(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, index=True)

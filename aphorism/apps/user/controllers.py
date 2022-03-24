@@ -1,11 +1,12 @@
 from http import HTTPStatus
 
 from flask import request, Response
+from flask_jwt_extended import get_jwt, jwt_required
 from flask_restx import Resource
 
 from aphorism.apps.user import user_ns
 from aphorism.apps.user.dto.register import RegisterModel
-from aphorism.apps.user.logic.registration import register_user
+from aphorism.apps.user.logic.registration import register_user, revoke_token
 
 
 @user_ns.route("/register")
@@ -31,5 +32,8 @@ class LoginUser(Resource):
 @user_ns.route("/logout")
 class Logout(Resource):
     @user_ns.doc(security="Bearer")
-    def post(self):
-        pass
+    @user_ns.response(int(HTTPStatus.UNAUTHORIZED), "No token provided.")
+    @user_ns.response(int(HTTPStatus.OK), "Token successfully withdrawn.")
+    @jwt_required()
+    def delete(self) -> Response:
+        return revoke_token(get_jwt())
