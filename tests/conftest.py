@@ -1,6 +1,7 @@
 import pytest
 from flask import Flask
 from flask.testing import FlaskClient
+from flask_sqlalchemy import SQLAlchemy
 
 from aphorism import create_app, db
 
@@ -17,7 +18,7 @@ def client(app: Flask) -> FlaskClient:
 
 
 @pytest.fixture(autouse=True)
-def database(app):
+def database(app) -> SQLAlchemy:
     with app.app_context():
         db.drop_all()
         db.create_all()
