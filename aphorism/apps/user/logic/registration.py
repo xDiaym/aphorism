@@ -1,8 +1,9 @@
 from http import HTTPStatus
+from typing import Any
 
 from flask import Response, jsonify
 from flask_restx import abort
-from aphorism import db
+from aphorism import db, jwt
 
 from aphorism.apps.user import logger
 from aphorism.apps.user.model import User, TokenBlockList
@@ -25,6 +26,21 @@ def register_user(name: str, slug: str, email: str, password: str) -> Response:
         new_user.create_new_token(),
     )
 
+def _create_token_response(status_code: int, token: str) -> Response:
+    response = jsonify(token=token)
+    response.status_code = status_code
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Pragma"] = "no-cache"
+    return response
+
+
+# TODO: move in new file
+@jwt.token_in_blocklist_loader
+def check_if_token_revoked(_jwt_header: Any, jwt_payload: dict) -> bool:
+    jti = jwt_payload["jti"]
+    token = TokenBlockList.query.filter_by(jti=jti).first()
+    return token is not None
+
 
 def revoke_token(token_payload: dict[str, str]) -> Response:
     jti = token_payload["jti"]
@@ -32,11 +48,3 @@ def revoke_token(token_payload: dict[str, str]) -> Response:
     db.session.commit()
     logger.info("Token of User(id=%i) revoked", token_payload["sub"])
     return jsonify(message="Token revoked")
-
-
-def _create_token_response(status_code: int, token: str) -> Response:
-    response = jsonify(token=token)
-    response.status_code = status_code
-    response.headers["Cache-Control"] = "no-store"
-    response.headers["Pragma"] = "no-cache"
-    return response

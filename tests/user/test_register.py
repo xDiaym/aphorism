@@ -1,23 +1,11 @@
 import json
 from http import HTTPStatus
-from typing import Any
 
 from flask import Flask
 from flask.testing import FlaskClient
-from werkzeug.test import TestResponse
 
 from aphorism.apps.user.model import User
-
-
-def register_user(test_client: FlaskClient, data: Any) -> TestResponse:
-    return test_client.post(
-        "/api/v1/user/register",
-        data=data,
-        headers={
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    )
+from tests.user.conftest import register_user
 
 
 def test_register_validation(client: FlaskClient) -> None:
