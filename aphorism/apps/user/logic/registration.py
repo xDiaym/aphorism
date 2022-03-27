@@ -3,6 +3,7 @@ from typing import Any
 
 from flask import Response, jsonify
 from flask_restx import abort
+
 from aphorism import db, jwt
 
 from aphorism.apps.user import logger
@@ -26,6 +27,7 @@ def register_user(name: str, slug: str, email: str, password: str) -> Response:
         new_user.create_new_token(),
     )
 
+
 def _create_token_response(status_code: int, token: str) -> Response:
     response = jsonify(token=token)
     response.status_code = status_code
@@ -48,3 +50,16 @@ def revoke_token(token_payload: dict[str, str]) -> Response:
     db.session.commit()
     logger.info("Token of User(id=%i) revoked", token_payload["sub"])
     return jsonify(message="Token revoked")
+
+
+def login(email: str, password: str) -> Response:
+    user = User.find_by_email(email)
+    if user is None:
+        abort(int(HTTPStatus.BAD_REQUEST), "Invalid credentials", status="fail")
+    if user.check_password(password):
+        logger.info("User(id=%i) logged in", user.id)
+        return _create_token_response(
+            int(HTTPStatus.OK),
+            user.create_new_token(),
+        )
+    abort(int(HTTPStatus.BAD_REQUEST), "Invalid credentials", status="fail")

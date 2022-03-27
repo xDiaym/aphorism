@@ -1,5 +1,5 @@
 from flask_jwt_extended import create_access_token
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from aphorism import db
 
@@ -18,9 +18,16 @@ class User(db.Model):
     def create_new_token(self) -> str:
         return create_access_token(identity=self.id)
 
+    def check_password(self, password: str) -> bool:
+        return check_password_hash(self.password, password)
+
     @classmethod
     def find_by_slug(cls, slug: str) -> "User | None":
         return cls.query.filter_by(slug=slug).first()
+
+    @classmethod
+    def find_by_email(cls, email: str) -> "User | None":
+        return cls.query.filter_by(email=email).first()
 
 
 class TokenBlockList(db.Model):

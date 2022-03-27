@@ -6,7 +6,12 @@ from flask_restx import Resource
 
 from aphorism.apps.user import user_ns
 from aphorism.apps.user.dto.register import RegisterModel
-from aphorism.apps.user.logic.registration import register_user, revoke_token
+from aphorism.apps.user.dto.login import LoginModel
+from aphorism.apps.user.logic.registration import (
+    register_user,
+    revoke_token,
+    login,
+)
 
 
 @user_ns.route("/register")
@@ -20,13 +25,18 @@ class RegisterUser(Resource):
         "Internal server error.",
     )
     def post(self) -> Response:
+        # FIXME: non-strict validation can cause errors
         return register_user(**request.get_json())
 
 
 @user_ns.route("/login")
 class LoginUser(Resource):
-    def post(self):
-        pass
+    @user_ns.expect(LoginModel, validate=True)
+    @user_ns.response(int(HTTPStatus.OK), "Successfully login.")
+    @user_ns.response(int(HTTPStatus.BAD_REQUEST), "Validation error.")
+    def post(self) -> Response:
+        auth_data = request.json
+        return login(auth_data["email"], auth_data["password"])
 
 
 @user_ns.route("/logout")
