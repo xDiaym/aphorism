@@ -6,8 +6,8 @@ from flask_restx import abort
 
 from aphorism import db, jwt
 
-from aphorism.apps.user import logger
-from aphorism.apps.user.model import User, TokenBlockList
+from aphorism.apps.auth import logger
+from aphorism.apps.auth.model import User, TokenBlockList
 
 
 def register_user(name: str, slug: str, email: str, password: str) -> Response:

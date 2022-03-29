@@ -1,10 +1,10 @@
 from flask_restx.fields import String
 
-from aphorism.apps.user import user_ns
-from aphorism.apps.user.dto.login import LoginModel
+from aphorism.apps.auth import auth_ns
+from aphorism.apps.auth.schema.login import LoginModel
 
 
-RegisterModel = user_ns.inherit(
+RegisterModel = auth_ns.inherit(
     "RegisterModel",
     LoginModel,
     {

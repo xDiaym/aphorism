@@ -4,7 +4,7 @@ from http import HTTPStatus
 from flask import Flask
 from flask.testing import FlaskClient
 
-from aphorism.apps.user.model import User
+from aphorism.apps.auth.model import User
 from tests.user.conftest import register_user
 
 

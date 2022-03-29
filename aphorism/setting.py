@@ -19,6 +19,8 @@ class BaseSettings(ABC):
         )
     )
 
+    RESTX_MASK_SWAGGER = False  # noqa
+
 
 class DevelopmentSettings(BaseSettings):
     DEBUG = True

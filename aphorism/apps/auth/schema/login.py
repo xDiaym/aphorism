@@ -1,9 +1,9 @@
 from flask_restx.fields import String
 
-from aphorism.apps.user import user_ns
+from aphorism.apps.auth import auth_ns
 
 
-LoginModel = user_ns.model(
+LoginModel = auth_ns.model(
     "LoginModel",
     {
         "email": String(
