@@ -3,12 +3,12 @@ from http import HTTPStatus
 from flask.testing import FlaskClient
 from werkzeug.test import TestResponse
 
-from tests.user.conftest import RegisteredUser
+from tests.conftest import RegisteredUser
 
 
 def logout(client: FlaskClient, token: str) -> TestResponse:
     return client.delete(
-        "/api/v1/user/logout",
+        "/api/v1/auth/logout",
         headers={
             "Authorization": f"Bearer {token}",
         },
@@ -16,7 +16,7 @@ def logout(client: FlaskClient, token: str) -> TestResponse:
 
 
 def test_logout_without_token(client: FlaskClient) -> None:
-    response = client.delete("/api/v1/user/logout")
+    response = client.delete("/api/v1/auth/logout")
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
     # FIXME: different response schema
     assert response.json["msg"] == "Missing Authorization Header"
