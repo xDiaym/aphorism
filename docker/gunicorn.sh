@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-alembic upgrade head
+flask db upgrade
 
 gunicorn aphorism.wsgi:application -w 4

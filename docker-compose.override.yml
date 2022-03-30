@@ -1,9 +1,11 @@
+# Development build
 version: "3.8"
 services:
   web:
     ports:
       # We only bind ports directly in development:
       - "8000:8000"
+    user: root
     volumes:
       # We only mount source code in development:
       - .:/code
