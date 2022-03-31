@@ -4,7 +4,7 @@ from flask_restx import Resource, abort
 
 from aphorism.apps.user import user_ns
 from aphorism.apps.user.schema import UserModel
-from aphorism.apps.auth.model import User
+from aphorism.apps.user.model import User
 
 
 @user_ns.route("/<slug>")
