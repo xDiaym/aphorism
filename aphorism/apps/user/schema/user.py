@@ -8,5 +8,6 @@ UserModel = user_ns.model(
     {
         "name": String(),
         "slug": String(),
+        "status": String(),
     },
 )

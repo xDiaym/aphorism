@@ -44,6 +44,15 @@ def check_if_token_revoked(_jwt_header: Any, jwt_payload: dict) -> bool:
     return token is not None
 
 
+@jwt.user_lookup_loader
+def user_lookup_callback(
+    _jwt_header: dict[str, str],
+    jwt_data: dict[str, str],
+) -> None | User:
+    identity = jwt_data["sub"]
+    return User.query.filter_by(id=identity).first()
+
+
 def revoke_token(token_payload: dict[str, str]) -> Response:
     jti = token_payload["jti"]
     db.session.add(TokenBlockList(jti=jti))
