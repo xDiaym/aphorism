@@ -4,12 +4,12 @@ from http import HTTPStatus
 from flask.testing import FlaskClient
 from werkzeug.test import TestResponse
 
-from tests.user.conftest import RegisteredUser
+from tests.conftest import RegisteredUser
 
 
 def login(client: FlaskClient, auth: dict[str, str]) -> TestResponse:
     return client.post(
-        "/api/v1/user/login",
+        "/api/v1/auth/login",
         data=json.dumps(auth),
         headers={
             "Accept": "application/json",

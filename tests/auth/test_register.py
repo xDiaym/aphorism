@@ -4,8 +4,8 @@ from http import HTTPStatus
 from flask import Flask
 from flask.testing import FlaskClient
 
-from aphorism.apps.auth.model import User
-from tests.user.conftest import register_user
+from aphorism.apps.user.model import User
+from tests.conftest import register_user
 
 
 def test_register_validation(client: FlaskClient) -> None:

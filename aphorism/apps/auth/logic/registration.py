@@ -7,7 +7,8 @@ from flask_restx import abort
 from aphorism import db, jwt
 
 from aphorism.apps.auth import logger
-from aphorism.apps.auth.model import User, TokenBlockList
+from aphorism.apps.user.model import User
+from aphorism.apps.auth.model import TokenBlockList
 
 
 def register_user(name: str, slug: str, email: str, password: str) -> Response:
@@ -39,9 +40,17 @@ def _create_token_response(status_code: int, token: str) -> Response:
 # TODO: move in new file
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(_jwt_header: Any, jwt_payload: dict) -> bool:
-    jti = jwt_payload["jti"]
-    token = TokenBlockList.query.filter_by(jti=jti).first()
+    token = TokenBlockList.find_by_jti(jwt_payload["jti"])
     return token is not None
+
+
+@jwt.user_lookup_loader
+def user_lookup_callback(
+    _jwt_header: dict[str, str],
+    jwt_data: dict[str, str],
+) -> None | User:
+    identity = jwt_data["sub"]
+    return User.query.filter_by(id=identity).first()
 
 
 def revoke_token(token_payload: dict[str, str]) -> Response:
