@@ -1,6 +1,6 @@
 import json
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Callable
 
 import pytest
 from flask import Flask
@@ -31,13 +31,21 @@ def database(app) -> SQLAlchemy:
 
 
 @pytest.fixture
-def user() -> dict[str, str]:
-    return {
-        "name": "John Doe",
-        "slug": "john_doe",
-        "email": "johndoe@mail.com",
-        "password": "mypassword",
-    }
+def get_user_reg_data() -> Callable[[], dict[str, str]]:
+    # Oh, closure can cause memory leaks...
+    index = 0
+
+    def generate() -> dict[str, str]:
+        nonlocal index
+        data = {
+            "name": "John Doe",
+            "slug": f"john_doe_{index}",
+            "email": f"johndoe{index}@mail.com",
+            "password": "mypassword",
+        }
+        index += 1
+        return data
+    return generate
 
 
 def register_user(test_client: FlaskClient, data: Any) -> TestResponse:
@@ -70,7 +78,8 @@ class RegisteredUser:
 @pytest.fixture
 def registered_user(
     client: FlaskClient,
-    user: dict[str, str],
+    get_user_reg_data: Callable[[], dict[str, str]],
 ) -> RegisteredUser:
-    token = register_user(client, json.dumps(user)).json["token"]
-    return RegisteredUser(**user, token=token)
+    reg_data = get_user_reg_data()
+    token = register_user(client, json.dumps(reg_data)).json["token"]
+    return RegisteredUser(**reg_data, token=token)
