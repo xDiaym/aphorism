@@ -1,8 +1,11 @@
 from http import HTTPStatus
+from typing import Callable
 
+from flask import Flask
 from flask.testing import FlaskClient
 from werkzeug.test import TestResponse
 
+from aphorism.apps.user.model import User
 from tests.conftest import RegisteredUser
 
 
@@ -42,4 +45,14 @@ def test_subscription_without_token(
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-# TODO: add test for normal behavior
+def test_subscription_ok(
+    app: Flask,
+    client: FlaskClient,
+    registered_user_fabric: Callable[[], RegisteredUser],
+) -> None:
+    u1, u2 = registered_user_fabric(), registered_user_fabric()
+    response = subscribe(client, u2.token, u1.slug)
+    assert response.status_code == int(HTTPStatus.OK)
+    with app.app_context():
+        sub = User.query.first()
+        assert sub is not None

@@ -4,6 +4,7 @@ from flask import Response, jsonify
 from flask_jwt_extended import jwt_required, current_user
 from flask_restx import Resource, abort
 
+from aphorism import db
 from aphorism.apps.subscription import subscription_ns
 from aphorism.apps.user.model import User
 
@@ -22,5 +23,6 @@ class SubscribeResource(Resource):
         assert publisher is not None, "Publisher can't be None due check above"
         if publisher.id == current_user.id:
             abort(int(HTTPStatus.CONFLICT), "Self subscription", status="fail")
-        current_user.subscriptions.add(publisher)
+        current_user.subscriptions.append(publisher)
+        db.session.commit()
         return jsonify(status="ok")

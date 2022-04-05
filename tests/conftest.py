@@ -80,6 +80,20 @@ def registered_user(
     client: FlaskClient,
     get_user_reg_data: Callable[[], dict[str, str]],
 ) -> RegisteredUser:
+    """Create single user."""
     reg_data = get_user_reg_data()
     token = register_user(client, json.dumps(reg_data)).json["token"]
     return RegisteredUser(**reg_data, token=token)
+
+
+@pytest.fixture
+def registered_user_fabric(
+    client: FlaskClient,
+    get_user_reg_data: Callable[[], dict[str, str]],
+) -> Callable[[], RegisteredUser]:
+    """Registered user fabric"""
+    def fabric() -> RegisteredUser:
+        reg_data = get_user_reg_data()
+        token = register_user(client, json.dumps(reg_data)).json["token"]
+        return RegisteredUser(**reg_data, token=token)
+    return fabric
