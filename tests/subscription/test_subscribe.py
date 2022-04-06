@@ -5,6 +5,7 @@ from flask import Flask
 from flask.testing import FlaskClient
 from werkzeug.test import TestResponse
 
+from aphorism.apps.subscription.model import subscriptions
 from aphorism.apps.user.model import User
 from tests.conftest import RegisteredUser
 
@@ -53,6 +54,8 @@ def test_subscription_ok(
     u1, u2 = registered_user_fabric(), registered_user_fabric()
     response = subscribe(client, u2.token, u1.slug)
     assert response.status_code == int(HTTPStatus.OK)
+
     with app.app_context():
-        sub = User.query.first()
-        assert sub is not None
+        u = User.query.join(subscriptions, subscriptions.c.subscriber_id == User.id).first()
+        assert u is not None
+        assert u.slug == u2.slug

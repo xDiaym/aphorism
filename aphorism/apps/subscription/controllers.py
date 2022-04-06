@@ -26,3 +26,17 @@ class SubscribeResource(Resource):
         current_user.subscriptions.append(publisher)
         db.session.commit()
         return jsonify(status="ok")
+
+
+@subscription_ns.route("/unsubscribe/<slug>")
+class UnsubscribeResource(Resource):
+    @subscription_ns.response(int(HTTPStatus.OK), "Successfully unsubscribed")
+    @subscription_ns.response(int(HTTPStatus.UNAUTHORIZED), "Invalid token")
+    @subscription_ns.response(int(HTTPStatus.NOT_FOUND), "User not found")
+    @jwt_required()
+    def delete(self, slug: str) -> Response:
+        user = User.find_by_slug(slug)
+        if user is None:
+            abort(int(HTTPStatus.NOT_FOUND), "User not found", status="fail")
+        assert user is not None, "user never None due to check above"
+

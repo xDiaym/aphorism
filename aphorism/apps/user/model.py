@@ -17,8 +17,8 @@ class User(db.Model):
     subscriptions = db.relationship(
         "User",
         secondary=subscriptions,
-        primaryjoin=subscriptions.c.publisher_id == id,
-        secondaryjoin=subscriptions.c.subscriber_id == id,
+        primaryjoin=subscriptions.c.subscriber_id == id,
+        secondaryjoin=subscriptions.c.publisher_id == id,
         backref=backref("subscribers", lazy="subquery"),
         lazy="subquery",
     )
