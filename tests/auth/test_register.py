@@ -1,5 +1,6 @@
 import json
 from http import HTTPStatus
+from typing import Callable
 
 from flask import Flask
 from flask.testing import FlaskClient
@@ -16,8 +17,9 @@ def test_register_validation(client: FlaskClient) -> None:
 def test_register_new_user(
     client: FlaskClient,
     app: Flask,
-    user: dict[str, str],
+    get_user_reg_data: Callable[[], dict[str, str]],
 ) -> None:
+    user = get_user_reg_data()
     response = register_user(client, data=json.dumps(user))
     assert "token" in response.json
     assert response.status_code == int(HTTPStatus.CREATED)
@@ -29,7 +31,11 @@ def test_register_new_user(
         assert db_user.email == user["email"]
 
 
-def test_user_already_exist(client: FlaskClient, user: dict[str, str]) -> None:
+def test_user_already_exist(
+    client: FlaskClient,
+    get_user_reg_data: Callable[[], dict[str, str]],
+) -> None:
+    user = get_user_reg_data()
     register_user(client, data=json.dumps(user))
     response = register_user(client, data=json.dumps(user))
     assert response.status_code == int(HTTPStatus.CONFLICT)

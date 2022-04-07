@@ -1,7 +1,9 @@
 from flask_jwt_extended import create_access_token
+from sqlalchemy.orm import backref
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from aphorism import db
+from aphorism.apps.subscription.model import subscriptions
 
 
 class User(db.Model):
@@ -12,6 +14,14 @@ class User(db.Model):
     email = db.Column(db.String(length=128), unique=True)
     password = db.Column(db.String(length=128))
     status = db.Column(db.String(length=128))
+    subscriptions = db.relationship(
+        "User",
+        secondary=subscriptions,
+        primaryjoin=subscriptions.c.subscriber_id == id,
+        secondaryjoin=subscriptions.c.publisher_id == id,
+        backref=backref("subscribers", lazy="subquery"),
+        lazy="subquery",
+    )
 
     def __init__(self, password: str, *args: str, **kwargs: str) -> None:
         super().__init__(password=password, *args, **kwargs)
