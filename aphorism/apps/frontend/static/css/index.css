@@ -1,0 +1,54 @@
+.sign_up {
+    margin-right: 3%;
+}
+
+.buttons {
+    margin-top: 3%;
+    display: flex;
+    align-items: center;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 3.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+a {
+    font-weight: 500;
+    font-size: 1.2em;
+    padding: 2.5% 10%;
+    border-radius: 64px;
+    background-color: var(--main-logo-color);
+}
+
+.description {
+    background-color: var(--sub-bg-color);
+    text-align: center;
+    padding: 1.5% 0;
+}
+
+.main_wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.greet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 5%;
+}
+
+.logo {
+    width: 20vw;
+}
+
+.illustration {
+    width: 63vw;
+}

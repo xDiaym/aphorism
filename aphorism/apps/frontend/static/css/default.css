@@ -1,0 +1,102 @@
+:root {
+    --main-bg-color: #232323;
+    --main-logo-color: #686ede;
+    --sub-bg-color: #444444;
+    --dark-text: #b3b3b3;
+    --like-color: #9c1f4d;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans SemiBold'), local('FiraSans-SemiBold'), url('../fonts/firasans/Firasanssemibold.woff2') format('woff2'), url('../fonts/firasans/Firasanssemibold.woff') format('woff'), url('../fonts/firasans/Firasanssemibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans Medium'), local('FiraSans-Medium'), url('../fonts/firasans/Firasansmedium.woff2') format('woff2'), url('../fonts/firasans/Firasansmedium.woff') format('woff'), url('../fonts/firasans/Firasansmedium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans ExtraLight'), local('FiraSans-ExtraLight'), url('../fonts/firasans/Firasansextralight.woff2') format('woff2'), url('../fonts/firasans/Firasansextralight.woff') format('woff'), url('../fonts/firasans/Firasansextralight.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans Light'), local('FiraSans-Light'), url('../fonts/firasans/Firasanslight.woff2') format('woff2'), url('../fonts/firasans/Firasanslight.woff') format('woff'), url('../fonts/firasans/Firasanslight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans Book'), local('FiraSans-Book'), url('../fonts/firasans/Firasansbook.woff2') format('woff2'), url('../fonts/firasans/Firasansbook.woff') format('woff'), url('../fonts/firasans/Firasansbook.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans Regular'), local('FiraSans-Regular'), url('../fonts/firasans/Firasansregular.woff2') format('woff2'), url('../fonts/firasans/Firasansregular.woff') format('woff'), url('../fonts/firasans/Firasansregular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans Heavy'), local('FiraSans-Heavy'), url('../fonts/firasans/Firasansheavy.woff2') format('woff2'), url('../fonts/firasans/Firasansheavy.woff') format('woff'), url('../fonts/firasans/Firasansheavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans Bold'), local('FiraSans-Bold'), url('../fonts/firasans/Firasansbold.woff2') format('woff2'), url('../fonts/firasans/Firasansbold.woff') format('woff'), url('../fonts/firasans/Firasansbold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: local('Fira Sans ExtraBold'), local('FiraSans-ExtraBold'), url('../fonts/firasans/Firasansextrabold.woff2') format('woff2'), url('../fonts/firasans/Firasansextrabold.woff') format('woff'), url('../fonts/firasans/Firasansextrabold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+    background-color: var(--main-bg-color);
+    font-family: 'Fira Sans', 'Arial', sans-serif;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
