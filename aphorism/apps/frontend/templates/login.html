@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="../static/css/default.css">
+    <link rel="stylesheet" href="../static/css/auth.css">
+    <link rel="icon" href="../static/img/main_icon.svg">
+</head>
+
+<body>
+    <main>
+        <div class="main_wrapper">
+            <img src="../static/img/logo.svg" class="logo" draggable="false">
+            <div class="form_wrapper">
+                <h1>Sign in</h1>
+                <form action="api/v1/feed" method="post">
+                    <div class="input_wrapper">
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" placeholder="example@email.com" class="input_line">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" placeholder="****" class="input_line">
+                    </div>
+                    <input type="button" value="let's go" class="submit">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

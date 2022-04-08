@@ -1,0 +1,88 @@
+.main_wrapper {
+    margin: 0 auto;
+    height: 100vh;
+    justify-content: center;
+}
+
+.main_wrapper,
+.form_wrapper,
+.input_wrapper,
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit {
+    align-self: center;
+}
+
+label {
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+label:not(:first-child) {
+    margin-top: 15px;
+}
+
+.form_wrapper {
+    margin-top: 20px;
+    background-color: var(--sub-bg-color);
+    border-radius: 30px;
+    padding: 20px 0;
+}
+
+.input_wrapper {
+    align-items: flex-start;
+    margin: 20px 0;
+    padding: 20px 30px;
+    border-bottom: 2px solid var(--main-bg-color);
+    border-top: 2px solid var(--main-bg-color);
+}
+
+.input_line {
+    width: 13vw;
+    height: 3vh;
+    border: none;
+    margin-top: 3px;
+    padding-left: 20px;
+    border-radius: 15px;
+    background-color: var(--main-bg-color);
+    color: var(--dark-text);
+    font-size: 1.1em;
+}
+
+.input_line:focus {
+    outline: solid var(--main-logo-color) 2px;
+}
+
+.submit {
+    color: white;
+    background-color: var(--main-logo-color);
+    border: none;
+    padding: 2.5% 10%;
+    border-radius: 64px;
+    font-weight: 500;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.logo {
+    width: 13vw;
+}
+
+h1 {
+    font-size: 1.7em;
+}
+
+input {
+    font-family: 'Fira Sans', 'Arial', sans-serif;
+}
+
+p {
+    color: var(--like-color);
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 1.2em;
+}
