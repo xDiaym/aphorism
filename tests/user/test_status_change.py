@@ -8,15 +8,15 @@ from tests.conftest import RegisteredUser
 
 
 def set_status(
-    client: FlaskClient,
-    status: str,
-    headers: dict[str, str]
+    client: FlaskClient, status: str, headers: dict[str, str]
 ) -> TestResponse:
     data = json.dumps({"status": status})
-    headers.update({
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    })
+    headers.update(
+        {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
+    )
     return client.post("/api/v1/user/status", data=data, headers=headers)
 
 

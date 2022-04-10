@@ -8,4 +8,3 @@ subscription_ns = Namespace(
 )
 
 logger = logging.getLogger()
-

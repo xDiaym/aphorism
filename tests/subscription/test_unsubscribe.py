@@ -52,7 +52,10 @@ def test_unsubscribe_ok(
     assert response.status_code == int(HTTPStatus.OK)
 
     with app.app_context():
-        u = User.query.join(subscriptions, subscriptions.c.subscriber_id == User.id).first()
+        u = User.query.join(
+            subscriptions, subscriptions.c.subscriber_id == User.id
+        ).first()
         assert u is None
+
 
 # TODO: add more tests

@@ -15,7 +15,7 @@ from aphorism.apps.auth.logic.registration import (
 
 
 @auth_ns.route("/register")
-class RegisterUser(Resource):
+class RegisterUser(Resource):  # type: ignore
     @auth_ns.expect(RegisterModel, validate=True)
     @auth_ns.response(int(HTTPStatus.CREATED), "Successfully register.")
     @auth_ns.response(int(HTTPStatus.BAD_REQUEST), "Validation error.")

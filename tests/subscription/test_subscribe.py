@@ -3,7 +3,6 @@ from typing import Callable
 
 from flask import Flask
 from flask.testing import FlaskClient
-from werkzeug.test import TestResponse
 
 from aphorism.apps.subscription.model import subscriptions
 from aphorism.apps.user.model import User
@@ -45,6 +44,8 @@ def test_subscription_ok(
     assert response.status_code == int(HTTPStatus.OK)
 
     with app.app_context():
-        u = User.query.join(subscriptions, subscriptions.c.subscriber_id == User.id).first()
+        u = User.query.join(
+            subscriptions, subscriptions.c.subscriber_id == User.id
+        ).first()
         assert u is not None
         assert u.slug == u2.slug
