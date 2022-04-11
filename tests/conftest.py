@@ -45,6 +45,7 @@ def get_user_reg_data() -> Callable[[], dict[str, str]]:
         }
         index += 1
         return data
+
     return generate
 
 
@@ -92,8 +93,10 @@ def registered_user_fabric(
     get_user_reg_data: Callable[[], dict[str, str]],
 ) -> Callable[[], RegisteredUser]:
     """Registered user fabric"""
+
     def fabric() -> RegisteredUser:
         reg_data = get_user_reg_data()
         token = register_user(client, json.dumps(reg_data)).json["token"]
         return RegisteredUser(**reg_data, token=token)
+
     return fabric
