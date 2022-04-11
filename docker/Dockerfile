@@ -48,4 +48,3 @@ ENTRYPOINT ["/entrypoint.sh"]
 # Production only build
 FROM development_build AS production_build
 COPY --chown=web:web . /code
-
