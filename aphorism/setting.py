@@ -2,6 +2,8 @@ from abc import ABC
 from os import environ
 from pathlib import Path
 
+from flask import current_app
+
 BASEDIR = Path(__file__).resolve().parent.parent
 
 
@@ -20,6 +22,8 @@ class BaseSettings(ABC):
     )
 
     RESTX_MASK_SWAGGER = False  # noqa
+    current_app.config["UPLOAD_FOLDER"] = "media/audio"
+    current_app.config["MAX_CONTENT_LENGTH"] = 200 * 1024 * 1024
 
 
 class DevelopmentSettings(BaseSettings):
