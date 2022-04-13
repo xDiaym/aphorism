@@ -25,7 +25,7 @@ services:
           - "*"
 
       volumes:
-        - django-static:/var/www/django/static
+        - media:/var/www/media
       depends_on:
         - db
       networks:
@@ -61,4 +61,4 @@ networks:
 
 volumes:
   pgdata:
-  django-static:
+  media:

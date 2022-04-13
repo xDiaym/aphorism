@@ -31,6 +31,7 @@ class DevelopmentSettings(BaseSettings):
 
 
 class TestingSetting(BaseSettings):
+    current_app.config["UPLOAD_FOLDER"] = "../../tests/feed"
     TESTING = True
 
 
