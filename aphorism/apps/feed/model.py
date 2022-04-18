@@ -1,9 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy.orm import backref
-
 from aphorism import db
-from aphorism.apps.user.model import User
 
 post_likes = db.Table(
     "likes",
@@ -16,16 +13,14 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey("user.id"))
     caption = db.Column(db.String(length=128))
-    voice_file = db.Column(db.String(lenght=32))
+    voice_file = db.Column(db.String(length=32))
     created_at = db.Column(db.DateTime, default=datetime.now)
     likes = db.relationship(
         "Post",
         secondary=post_likes,
-        primaryjoin=post_likes.c.post_id == id,
-        secondaryjoin=post_likes.c.user_id == User.id,
-        backref=backref("User", lazy="subquery"),
         lazy="subquery",
     )
 
+    # XXX: use field instead
     def add_voice_file(self, fname: str) -> None:
         self.voice_file = fname

@@ -4,13 +4,12 @@ from flask_restx import Api
 
 # FIXME: strange import order
 from aphorism.apps.auth.controllers import auth_ns
-from aphorism.apps.user.controllers import user_ns
+from aphorism.apps.feed.controllers import feed_ns
 from aphorism.apps.subscription.controllers import subscription_ns
+from aphorism.apps.user.controllers import user_ns
 
 api_v1_blueprint = Blueprint("api_v1", __name__)
-authorizations = {
-    "Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}
-}
+authorizations = {"Bearer": {"type": "apiKey", "in": "header", "name": "Authorization"}}
 
 api_v1 = Api(
     api_v1_blueprint,
@@ -24,3 +23,4 @@ api_v1 = Api(
 api_v1.add_namespace(auth_ns, path="/auth")
 api_v1.add_namespace(user_ns, path="/user")
 api_v1.add_namespace(subscription_ns, path="/subscription")
+api_v1.add_namespace(feed_ns, path="/feed")

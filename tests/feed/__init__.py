@@ -1,32 +1,63 @@
+from dataclasses import dataclass
+from pathlib import Path
+from typing import TypedDict, cast
+
 from flask.testing import FlaskClient
 from werkzeug.datastructures import FileStorage
 from werkzeug.test import TestResponse
 
-from tests.conftest import RegisteredUser
+
+class CreatePostDto(TypedDict):
+    caption: str
+    voice_file: FileStorage
 
 
-def get_post_content() -> dict[str, str | FileStorage]:
-    voice_file = FileStorage(
-        stream=open("example_sound.mp3", "rb"),
-        filename="example.mp3",
-        content_type="audio/mpeg",
-    )
-    data = {"caption": "Lorem ipsum dolor sit amet", "voice_file": voice_file}
+def get_post_content(filename: Path) -> CreatePostDto:
+    data: CreatePostDto = {"caption": "Lorem ipsum dolor sit amet"}
+    if not filename:
+        with open(filename, "rb") as fp:
+            data["voice_file"] = FileStorage(
+                stream=fp.read(),
+                filename=filename,
+                # content_type="audio/mpeg",
+            )
     return data
 
 
 def create_post(
     client: FlaskClient,
-    registered_user: RegisteredUser,
+    token: None | str,
+    filename: Path,
 ) -> TestResponse:
-    headers = (
-        {"Authorization": f"Bearer {registered_user.token}"}
-        if registered_user.token
-        else {}
-    )
-    return client.post(
-        f"/api/v1/feed",
-        data=get_post_content(),
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    response = client.post(
+        "/api/v1/feed",
+        data=get_post_content(filename),
         headers=headers,
         content_type="multipart/form-data",
+    )
+    return response
+
+
+def like(
+    client: FlaskClient,
+    token: None | str,
+    post_id: int,
+) -> TestResponse:
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    return client.put(
+        f"/api/v1/feed/like/{post_id}",
+        headers=headers,
+    )
+
+
+def unlike(
+    client: FlaskClient,
+    token: None | str,
+    post_id: int,
+) -> TestResponse:
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    return client.delete(
+        f"/api/v1/feed/like/{post_id}",
+        headers=headers,
     )

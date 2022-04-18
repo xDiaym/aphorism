@@ -2,7 +2,7 @@ from flask_restx.fields import String
 
 from aphorism.apps.feed import feed_ns
 
-PostModel = feed_ns.model(
+CreatePostModel = feed_ns.model(
     "PostModel",
     {
         "caption": String(),
