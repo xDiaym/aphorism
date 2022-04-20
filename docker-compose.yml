@@ -32,6 +32,7 @@ services:
         - webnet
       env_file: ./config/.env
       environment:
+        UPLOAD_DIRECTORY: /var/www/media
         FLASK_APP: manage.py
         FLASK_ENV: development
         

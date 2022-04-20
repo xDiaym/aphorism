@@ -1,6 +1,5 @@
-from dataclasses import dataclass
 from pathlib import Path
-from typing import TypedDict, cast
+from typing import TypedDict, IO
 
 from flask.testing import FlaskClient
 from werkzeug.datastructures import FileStorage
@@ -9,30 +8,27 @@ from werkzeug.test import TestResponse
 
 class CreatePostDto(TypedDict):
     caption: str
-    voice_file: FileStorage
+    voice_file: tuple[IO, str]
 
 
 def get_post_content(filename: Path) -> CreatePostDto:
     data: CreatePostDto = {"caption": "Lorem ipsum dolor sit amet"}
-    if not filename:
-        with open(filename, "rb") as fp:
-            data["voice_file"] = FileStorage(
-                stream=fp.read(),
-                filename=filename,
-                # content_type="audio/mpeg",
-            )
+    if filename:
+        # We must close file, but we need opened IO stream
+        data["voice_file"] = (open(filename, "rb"), filename.name)
     return data
 
 
 def create_post(
     client: FlaskClient,
     token: None | str,
-    filename: Path,
+    filename: None | Path,
 ) -> TestResponse:
+    data = get_post_content(filename) if filename else {}
     headers = {"Authorization": f"Bearer {token}"} if token else {}
     response = client.post(
-        "/api/v1/feed",
-        data=get_post_content(filename),
+        "/api/v1/feed/",
+        data=data,
         headers=headers,
         content_type="multipart/form-data",
     )

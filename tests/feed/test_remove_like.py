@@ -24,7 +24,7 @@ def test_remove_like_without_token(
 
 def test_remove_like_on_nonexistent_post(
     client: FlaskClient, registered_user: RegisteredUser
-) -> TestResponse:
+) -> None:
     response = unlike(client, registered_user.token, 0)
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
@@ -34,12 +34,12 @@ def test_remove_like_ok(
     client: FlaskClient,
     registered_user: RegisteredUser,
     audio_file: Path,
-) -> TestResponse:
+) -> None:
     post_response = create_post(client, registered_user.token, audio_file)
     like(client, registered_user.token, post_response.json.get("id"))
     response = unlike(client, registered_user.token, post_response.json.get("id"))
     assert response.status_code == int(HTTPStatus.OK)
 
     with app.app_context():
-        u = Post.query.join(post_likes, post_likes.c.user_id == User.id).first()
-        assert u is None
+        p = Post.query.first()
+        assert p.likes == []

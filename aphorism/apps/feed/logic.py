@@ -22,5 +22,6 @@ def is_allowed_ext(file: FileStorage) -> bool:
 def save_voice_file(file: FileStorage) -> str:
     _, file_ext = os.path.splitext(file.filename)
     fname = calc_md5(file) + file_ext
-    file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], fname))
+    path = current_app.config["UPLOAD_FOLDER"] / "audio" / fname
+    file.save(path)
     return fname

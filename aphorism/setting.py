@@ -21,7 +21,7 @@ class BaseSettings(ABC):
     )
 
     RESTX_MASK_SWAGGER = False  # noqa
-    UPLOAD_FOLDER = "media/audio"
+    UPLOAD_FOLDER = Path(environ["UPLOAD_DIRECTORY"]).resolve()
     MAX_CONTENT_LENGTH = 200 * 1024 * 1024  # 200 MB
 
 
