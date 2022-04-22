@@ -1,0 +1,271 @@
+.logo {
+    width: 13vw;
+}
+
+.main_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 40% 1fr;
+}
+
+.logo_wrapper {
+    padding: 20px;
+}
+
+.content_wrapper {
+    border-left: 1px solid var(--sub-bg-color);
+    border-right: 1px solid var(--sub-bg-color);
+    min-height: 100vh;
+}
+
+.profile_icon,
+.small_profile_icon {
+    border-radius: 50%;
+}
+
+.profile_icon {
+    width: 4vw;
+}
+
+.profile_wrapper,
+.profile_description,
+.post,
+.post_content,
+.selectors_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_wrapper {
+    border-bottom: 1px solid var(--sub-bg-color);
+}
+
+.profile_info,
+.profile_counts_wrapper,
+.profile_counts,
+.username,
+.post_header,
+.post_author_wrapper,
+.post_footer,
+.selector {
+    display: flex;
+}
+
+mark {
+    background-color: transparent;
+    color: var(--main-logo-color);
+}
+
+.profile_wrapper {
+    padding: 20px;
+}
+
+.profile_info {
+    width: 70%;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.profile_description {
+    padding-left: 20px;
+    width: 100%;
+}
+
+.username {
+    font-size: 1.3em;
+    padding-bottom: 2%;
+    gap: 10%;
+}
+
+.alias {
+    color: var(--dark-text);
+}
+
+.status {
+    color: white;
+    font-size: 1em;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    height: 25px;
+    background-image: linear-gradient(
+        var(--main-logo-color),
+        var(--main-logo-color)
+    );
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size 0.2s;
+}
+
+.status:hover {
+    background-size: 100% 2px;
+    border: none;
+}
+
+.status::placeholder {
+    color: var(--dark-text);
+}
+
+.profile_counts_wrapper {
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.profile_counts {
+    width: 30%;
+    justify-content: space-between;
+    font-size: 1.1em;
+}
+
+.button {
+    color: white;
+    background-color: var(--main-logo-color);
+    border: none;
+    padding: 10px 5%;
+    border-radius: 64px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.post {
+    background-color: var(--sub-bg-color);
+    border-radius: 40px;
+    margin: 3%;
+}
+
+.post_main_wrapper {
+    padding: 3%;
+}
+
+.post_header {
+    justify-content: space-between;
+}
+
+.post_author_name {
+    padding-left: 10px;
+}
+
+.small_profile_icon {
+    width: 2vw;
+}
+
+.post_timestamp {
+    color: var(--dark-text);
+}
+
+.post_content {
+    padding-top: 3%;
+}
+
+.post_footer {
+    padding: 0 3%;
+    border-top: 1px solid var(--main-bg-color);
+}
+
+audio {
+    padding-top: 20px;
+    width: 100%;
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: var(--main-bg-color);
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-mute-button {
+        filter: invert(60%) sepia(56%) saturate(6207%) hue-rotate(218deg)
+            brightness(92%) contrast(87%);
+    }
+
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+        color: white;
+        font-family: "Fira Sans", "Arial", sans-serif;
+        text-shadow: none;
+    }
+
+    audio::-webkit-media-controls-timeline,
+    audio::-webkit-media-controls-volume-slider {
+        filter: invert(82%) sepia(0%) saturate(862%) hue-rotate(228deg)
+            brightness(90%) contrast(84%);
+    }
+
+    audio::-webkit-media-controls-enclosure {
+        background: none;
+    }
+}
+
+.like_wrapper {
+    display: flex;
+    align-items: center;
+    padding: 1% 0;
+    font-weight: 500;
+}
+
+.like_label {
+    cursor: pointer;
+    margin-right: 10px;
+    width: 1.5vw;
+    height: 1.5vw;
+    background: url("../img/heart_unset.svg") no-repeat center;
+    background-size: 1.5vw;
+}
+
+.like {
+    display: none;
+}
+
+.like:hover + .like_label {
+    transform: scale(1.1);
+}
+
+.like:checked + .like_label {
+    filter: none;
+    background-image: url("../img/heart_set.svg");
+}
+
+.selectors_wrapper {
+    padding: 30px;
+    height: 14%;
+    justify-content: space-between;
+}
+
+.selector {
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    width: 150px;
+    height: 35px;
+    color: white;
+    border: 2px solid var(--main-logo-color);
+    padding: 10px 25px;
+    border-radius: 64px;
+    font-size: 1.4em;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.selector_icon {
+    width: 45px;
+}
+
+.search_authors {
+    color: white;
+    background: url("../img/search.svg") var(--sub-bg-color) no-repeat 10px;
+    background-size: 20px;
+    border: none;
+    border-radius: 64px;
+    padding-left: 40px;
+    width: 204px;
+    height: 2.5vh;
+}
+
+.search_authors::placeholder {
+    color: var(--dark-text);
+}
+
+.search_authors:focus {
+    outline: none;
+}

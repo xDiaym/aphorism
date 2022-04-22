@@ -76,10 +76,6 @@ h1 {
     font-size: 1.7em;
 }
 
-input {
-    font-family: 'Fira Sans', 'Arial', sans-serif;
-}
-
 p {
     color: var(--like-color);
     margin-top: 15px;
