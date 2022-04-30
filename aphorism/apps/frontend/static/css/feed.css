@@ -168,35 +168,6 @@ audio {
     width: 100%;
 }
 
-audio::-webkit-media-controls-panel {
-    background-color: var(--main-bg-color);
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    audio::-webkit-media-controls-play-button,
-    audio::-webkit-media-controls-mute-button {
-        filter: invert(60%) sepia(56%) saturate(6207%) hue-rotate(218deg)
-            brightness(92%) contrast(87%);
-    }
-
-    audio::-webkit-media-controls-current-time-display,
-    audio::-webkit-media-controls-time-remaining-display {
-        color: white;
-        font-family: "Fira Sans", "Arial", sans-serif;
-        text-shadow: none;
-    }
-
-    audio::-webkit-media-controls-timeline,
-    audio::-webkit-media-controls-volume-slider {
-        filter: invert(82%) sepia(0%) saturate(862%) hue-rotate(228deg)
-            brightness(90%) contrast(84%);
-    }
-
-    audio::-webkit-media-controls-enclosure {
-        background: none;
-    }
-}
-
 .like_wrapper {
     display: flex;
     align-items: center;
