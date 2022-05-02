@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aphorism</title>
-    <link rel="stylesheet" href="../static/css/default.css">
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="icon" href="../static/img/main_icon.svg">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.ico') }}">
 </head>
 
 <body>
@@ -16,16 +16,16 @@
         <div class="main_wrapper">
             <div class="greet">
                 <div class="slogan">
-                    <img src="../static/img/logo.svg" class="logo" draggable="false">
+                    <img src="{{ url_for('static', filename='img/logo.svg') }}" class="logo" draggable="false">
                     <div class="sub_slogan">
                         <h1>New way of communication</h1>
                         <div class="buttons">
-                            <a href="/register" class="sign_up">Sign up</a>
-                            <a href="/login">Sign in</a>
+                            <a href="{{ url_for('frontend.registration') }}" class="sign_up">Sign up</a>
+                            <a href="{{ url_for('frontend.login') }}">Sign in</a>
                         </div>
                     </div>
                 </div>
-                <img src="../static/img/illustration.svg" class="illustration" draggable="false">
+                <img src="{{ url_for('static', filename='img/illustration.svg') }}" class="illustration" draggable="false" alt="illustration">
             </div>
             <div class="description">
                 <h2>Social network only with voice messages and short captions</h2>

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -17,8 +19,12 @@ def create_app(config_name: str = "default") -> Flask:
     migrate.init_app(app, db)
     jwt.init_app(app)
 
-    from aphorism.apps import api_v1_blueprint
+    from aphorism.apps.frontend.view import front
+    app.register_blueprint(front, url_prefix="")
 
+    from aphorism.apps import api_v1_blueprint
     app.register_blueprint(api_v1_blueprint, url_prefix="/api/v1")
+
+    app.static_folder = Path(__file__).parent / "apps" / "frontend" / "static"
 
     return app
