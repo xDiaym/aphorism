@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import TypedDict, IO
 
 from flask.testing import FlaskClient
-from werkzeug.datastructures import FileStorage
 from werkzeug.test import TestResponse
 
 
@@ -33,6 +32,11 @@ def create_post(
         content_type="multipart/form-data",
     )
     return response
+
+
+def remove_post(client: FlaskClient, token: None | str, post_id: int) -> TestResponse:
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    return client.delete(f"/api/v1/feed/{post_id}", headers=headers)
 
 
 def like(

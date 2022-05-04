@@ -3,9 +3,7 @@ from pathlib import Path
 
 from flask import Flask
 from flask.testing import FlaskClient
-from werkzeug.test import TestResponse
 
-from aphorism.apps.feed.model import Post
 from aphorism.apps.user.model import User
 from tests.conftest import RegisteredUser
 from tests.feed import create_post

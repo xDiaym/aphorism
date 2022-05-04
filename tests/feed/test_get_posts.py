@@ -4,7 +4,6 @@ from time import sleep
 from typing import Callable
 
 from flask.testing import FlaskClient
-from werkzeug.test import TestResponse
 
 from tests.conftest import RegisteredUser
 from tests.feed import create_post
@@ -30,11 +29,15 @@ def test_get_posts_ok(
     u3 = registered_user_fabric()
     subscribe(client, u3.token, u1.slug)
     subscribe(client, u3.token, u2.slug)
-    headers = {
-        "Authorization": f"Bearer {u3.token}",
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    } if u3.token else {}
+    headers = (
+        {
+            "Authorization": f"Bearer {u3.token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
+        if u3.token
+        else {}
+    )
     response = client.get("/api/v1/feed/", headers=headers)
     assert response.status_code == int(HTTPStatus.OK)
     assert len(response.json) == 2
