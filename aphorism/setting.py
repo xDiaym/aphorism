@@ -3,6 +3,7 @@ from datetime import timedelta
 from os import environ
 from pathlib import Path
 
+
 BASEDIR = Path(__file__).resolve().parent.parent
 
 
@@ -22,6 +23,8 @@ class BaseSettings(ABC):
     )
 
     RESTX_MASK_SWAGGER = False  # noqa
+    UPLOAD_FOLDER = Path(environ["UPLOAD_DIRECTORY"]).resolve()
+    MAX_CONTENT_LENGTH = 200 * 1024 * 1024  # 200 MB
 
 
 class DevelopmentSettings(BaseSettings):

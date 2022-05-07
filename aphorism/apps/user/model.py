@@ -22,6 +22,7 @@ class User(db.Model):
         backref=backref("subscribers", lazy="subquery"),
         lazy="subquery",
     )
+    posts = db.relationship("Post")
 
     def __init__(self, password: str, *args: str, **kwargs: str) -> None:
         super().__init__(password=password, *args, **kwargs)
