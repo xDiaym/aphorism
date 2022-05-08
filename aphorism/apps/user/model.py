@@ -1,3 +1,5 @@
+import hashlib
+
 from flask_jwt_extended import create_access_token
 from sqlalchemy.orm import backref
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -33,6 +35,9 @@ class User(db.Model):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password, password)
+
+    def gravatar_hash(self) -> str:
+        return hashlib.md5(self.slug.encode()).hexdigest()
 
     def subscriptions_count(self) -> int:
         return len(self.subscriptions)
