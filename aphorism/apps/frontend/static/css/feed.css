@@ -113,7 +113,7 @@ mark {
 }
 
 .profile_counts {
-    width: 30%;
+    width: 50%;
     justify-content: space-between;
     font-size: 1.1em;
 }
@@ -126,6 +126,11 @@ mark {
     border-radius: 64px;
     font-weight: 500;
     cursor: pointer;
+}
+
+.feed_wrapper {
+    display: flex;
+    height: 100vh;
 }
 
 .post {
@@ -161,6 +166,18 @@ mark {
 .post_footer {
     padding: 0 3%;
     border-top: 1px solid var(--main-bg-color);
+}
+
+.empty-feed-text-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.empty-feed-text {
+    text-align: center;
 }
 
 audio {

@@ -22,6 +22,7 @@ class User(db.Model):
         backref=backref("subscribers", lazy="subquery"),
         lazy="subquery",
     )
+    posts = db.relationship("Post")
 
     def __init__(self, password: str, *args: str, **kwargs: str) -> None:
         super().__init__(password=password, *args, **kwargs)
@@ -32,6 +33,16 @@ class User(db.Model):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password, password)
+
+    def subscriptions_count(self) -> int:
+        return len(self.subscriptions)
+
+    def subscribers_count(self) -> int:
+        return (
+            db.session.query(subscriptions)
+            .filter_by(subscriber_id=self.id)
+            .count()
+        )
 
     @classmethod
     def find_by_slug(cls, slug: str) -> "User | None":

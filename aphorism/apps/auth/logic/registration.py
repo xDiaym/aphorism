@@ -58,7 +58,8 @@ def revoke_token(token_payload: dict[str, str]) -> Response:
     db.session.add(TokenBlockList(jti=jti))
     db.session.commit()
     logger.info("Token of User(id=%i) revoked", token_payload["sub"])
-    return jsonify(message="Token revoked")
+    response = jsonify(message="Token revoked")
+    return response
 
 
 def login(email: str, password: str) -> Response:

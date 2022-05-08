@@ -23,8 +23,8 @@
                         <img src="gravatar_here" class="profile_icon"> <!-- Add gravatar link -->
                         <div class="profile_description">
                             <div class="username">
-                                <h1>username</h1> <!-- Add variable -->
-                                <h2 class="alias">@slug</h2> <!-- Add variable -->
+                                <h1>{{ user.name }}</h1>
+                                <a class="alias" href="{{ url_for('frontend.feed', slug=user.slug) }}">@{{ user.slug }}</a>
                             </div>
                             <!-- Add variable to value -->
                             <input type="text" value="Lorem ipsum" placeholder="Change status" class="status">
@@ -32,63 +32,76 @@
                     </div>
                     <div class="profile_counts_wrapper">
                         <div class="profile_counts">
-                            <h3><mark>1.921</mark> followers</h3> <!-- Add variable -->
-                            <h3><mark>153</mark> following</h3> <!-- Add variable -->
+                            <h3><mark>{{ user.subscribers_count() }}</mark> followers</h3>
+                            <h3><mark>{{ user.subscriptions_count() }}</mark> following</h3>
                         </div>
                         <a href="somewhere" class="button">New podcast</a> <!-- Change address -->
                     </div>
                 </div>
                 <div class="feed_wrapper">
-                    <div class="post">
-                        <div class="post_main_wrapper">
-                            <div class="post_header">
-                                <!-- Add link to someone profile -->
-                                <a href="">
-                                    <div class="post_author_wrapper">
-                                        <img src="gravatar_here" class="small_profile_icon"> <!-- Add gravatar link -->
-                                        <div class="post_author_name">
-                                            <h4>username</h4> <!-- Add variable -->
-                                            <h4 class="alias">@slug</h4> <!-- Add variable -->
+                    {% if posts %}
+                        {% for post in posts %}
+                            <div class="post">
+                                <div class="post_main_wrapper">
+                                    <div class="post_header">
+                                        <!-- Add link to someone profile -->
+                                        <a href="">
+                                            <div class="post_author_wrapper">
+                                                <img src="gravatar_here" class="small_profile_icon"> <!-- Add gravatar link -->
+                                                <div class="post_author_name">
+                                                    <h4>slug</h4> <!-- Add variable -->
+                                                    <h4 class="alias">slug</h4> <!-- Add variable -->
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="post_timestamp">
+                                            16 March 2021<br> <!-- Add variable -->
+                                            15:45
                                         </div>
                                     </div>
-                                </a>
-                                <div class="post_timestamp">
-                                    16 March 2021<br> <!-- Add variable -->
-                                    15:45
+                                    <div class="post_content">
+                                        <p>{{ post.caption }}</p> <!-- Add variable -->
+                                        <!-- Add audio path -->
+                                        <audio controls controlsList="nodownload noplaybackrate" src="some_audio"></audio>
+                                    </div>
+                                </div>
+                                <div class="post_footer">
+                                    <div class="like_wrapper">
+                                        <input type="checkbox" class="like" id="like">
+                                        <label for="like" class="like_label"></label>
+                                        {{ post.likes }} likes
+                                        <!-- Add variable -->
+                                    </div>
                                 </div>
                             </div>
-                            <div class="post_content">
-                                <p>Caption</p> <!-- Add variable -->
-                                <!-- Add audio path -->
-                                <audio controls controlsList="nodownload noplaybackrate" src="some_audio"></audio>
-                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-feed-text-wrapper">
+                            <p class="empty-feed-text">
+                                There are no interesting for you right now :(
+                                <br>
+                                <a href="TODO">Create post</a> by yourself!
+                            </p>
                         </div>
-                        <div class="post_footer">
-                            <div class="like_wrapper">
-                                <input type="checkbox" class="like" id="like">
-                                <label for="like" class="like_label"></label>
-                                15 likes
-                                <!-- Add variable -->
-                            </div>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
             <nav>
                 <div class="selectors_wrapper">
                     <!-- Add "background-color: var(--main-logo-color)" when selector is chosen -->
-                    <a href="api/v1/me" class="selector" style="">
+                    <a href="{{ url_for('frontend.feed', slug=user.slug) }}" class="selector" style="">
                         <img src="../static/img/account.svg" class="selector_icon">
                         My page
                     </a>
                     <!-- Add "background-color: var(--main-logo-color)" when selector is chosen -->
-                    <a href="api/v1/feed" class="selector" style="">
+                    <a href="url_for('frontend.feed') " class="selector" style="">
                         <img src="../static/img/article.svg" class="selector_icon">
                         Feed
                     </a>
                     <input type="search" placeholder="Search authors" class="search_authors">
                 </div>
             </nav>
+        </div>
     </main>
     <script src="../static/js/input_adjust.js"></script>
 </body>
