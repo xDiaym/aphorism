@@ -109,6 +109,11 @@ audio {
     width: 1.7vw;
 }
 
+.trash_icon:hover,
+.clip_icon:hover {
+    transform: scale(1.1);
+}
+
 .btn {
     width: fit-content;
     color: white;
