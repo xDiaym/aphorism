@@ -166,6 +166,8 @@ mark {
 .post_footer {
     padding: 0 3%;
     border-top: 1px solid var(--main-bg-color);
+    align-items: center;
+    justify-content: space-between;
 }
 
 .empty-feed-text-wrapper {
@@ -205,13 +207,24 @@ audio {
     display: none;
 }
 
-.like:hover + .like_label {
+.like:hover + .like_label,
+.delete_post:hover {
     transform: scale(1.1);
 }
 
 .like:checked + .like_label {
     filter: none;
     background-image: url("../img/heart_set.svg");
+}
+
+.trash_icon {
+    width: 1.5vw;
+}
+
+.delete_post {
+    cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .selectors_wrapper {
