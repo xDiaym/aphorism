@@ -1,6 +1,8 @@
 from pathlib import Path
 
-from flask import Blueprint, render_template, redirect, abort
+from flask import Blueprint, render_template, redirect, abort, url_for
+from flask_jwt_extended import jwt_required, current_user
+from werkzeug import Response
 
 from aphorism import db
 from aphorism.apps.user.model import User
@@ -30,8 +32,14 @@ def login() -> str:
     return render_template("login.html")
 
 
+@front.get("/feed/me")
+@jwt_required()
+def my_feed() -> Response:
+    return redirect(url_for("frontend.feed", slug=current_user.slug))
+
+# TODO: JWT required
 @front.get("/feed/<slug>")
-def feed(slug: str) -> str:
+def feed(slug: str = None) -> str:
     user = User.find_by_slug(slug)
     if user is None:
         abort(404)

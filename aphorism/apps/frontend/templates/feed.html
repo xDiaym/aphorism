@@ -89,12 +89,12 @@
             <nav>
                 <div class="selectors_wrapper">
                     <!-- Add "background-color: var(--main-logo-color)" when selector is chosen -->
-                    <a href="api/v1/me" class="selector" style="">
+                    <a href="{{ url_for('frontend.feed', slug=user.slug) }}" class="selector" style="">
                         <img src="../static/img/account.svg" class="selector_icon">
                         My page
                     </a>
                     <!-- Add "background-color: var(--main-logo-color)" when selector is chosen -->
-                    <a href="api/v1/feed" class="selector" style="">
+                    <a href="url_for('frontend.feed') " class="selector" style="">
                         <img src="../static/img/article.svg" class="selector_icon">
                         Feed
                     </a>

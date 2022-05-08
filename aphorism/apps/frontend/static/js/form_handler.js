@@ -14,7 +14,6 @@ function setError(message) {
 }
 
 
-
 const password = document.querySelector("#password");
 const repeatedPassword = document.querySelector("#repeated_password");
 const button = document.querySelector(".submit");
