@@ -46,6 +46,11 @@ def feed(slug: str = None) -> str:
     return render_template("feed.html", user=user)
 
 
+@front.get("/add-post")
+def add_post() -> str:
+    return render_template("add_post.html")
+
+
 @front.errorhandler(404)
 def not_found(e) -> tuple[str, int]:
     return render_template("404.html"), 404

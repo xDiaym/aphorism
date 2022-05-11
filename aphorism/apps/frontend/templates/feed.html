@@ -36,7 +36,7 @@
                             <h3><mark>{{ user.subscribers_count() }}</mark> followers</h3>
                             <h3><mark>{{ user.subscriptions_count() }}</mark> following</h3>
                         </div>
-                        <a href="somewhere" class="button">New podcast</a> <!-- Change address -->
+                        <a href="{{ url_for('frontend.add_post') }}" class="button">New podcast</a> <!-- Change address -->
                     </div>
                 </div>
                 <div class="feed_wrapper">
@@ -82,7 +82,7 @@
                             <p class="empty-feed-text">
                                 There are no interesting for you right now :(
                                 <br>
-                                <a href="TODO">Create post</a> by yourself!
+                                <a href="{{ url_for('frontend.add_post') }}">Create post</a> by yourself!
                             </p>
                         </div>
                     {% endif %}
