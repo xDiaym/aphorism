@@ -1,4 +1,4 @@
-import { register } from "./actions.js"
+import {redirectToMyFeed, register} from "./actions.js"
 
 const errorArea = document.querySelector(".input_wrapper");
 
@@ -23,7 +23,7 @@ const name = document.querySelector('#display_name');
 button.addEventListener("click", async () => {
   if (password.value === repeatedPassword.value) {
     register(email.value, password.value, slug.value, name.value)
-      .then(() => window.location.href = `/feed/${slug.value}`)
+      .then(redirectToMyFeed)
       .catch(e => setError(e.message))
   } else {
     setError("Passwords don't match");

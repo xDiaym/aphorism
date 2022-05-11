@@ -31,7 +31,8 @@ class User(db.Model):
         self.password = generate_password_hash(password)
 
     def create_new_token(self) -> str:
-        return create_access_token(identity=self.id)
+        claims = {"slug": self.slug}
+        return create_access_token(identity=self.id, additional_claims=claims)
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password, password)

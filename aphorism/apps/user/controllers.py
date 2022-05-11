@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from flask import Response, jsonify, request
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, current_user
 from flask_restx import Resource, abort
 
 from aphorism.apps.user import user_ns
@@ -32,3 +32,15 @@ class StatusController(Resource):
     def post(self) -> Response:
         change_status(request.json["status"])
         return jsonify({"ok": True})
+
+
+@user_ns.route("/me")
+class MeController(Resource):
+    @user_ns.doc(security="Bearer")
+    @user_ns.response(int(HTTPStatus.OK), "User found")
+    @user_ns.response(int(HTTPStatus.UNAUTHORIZED), "Invalid token")
+    @user_ns.marshal_with(UserModel)
+    @jwt_required()
+    def get(self) -> UserModel:
+        # ??? can it be None?
+        return current_user

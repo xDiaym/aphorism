@@ -12,6 +12,22 @@ from aphorism.apps.subscription.model import subscriptions
 
 @subscription_ns.route("/<slug>")
 class SubscriptionResource(Resource):
+    @subscription_ns.response(int(HTTPStatus.OK), "Successfully get")
+    @subscription_ns.response(int(HTTPStatus.UNAUTHORIZED), "Invalid token")
+    @subscription_ns.response(int(HTTPStatus.NOT_FOUND), "User not found")
+    @jwt_required()
+    def get(self, slug: str) -> Response:
+        publisher = User.find_by_slug(slug)
+        if publisher is None:
+            abort(int(HTTPStatus.NOT_FOUND), "User not found", status="fail")
+        assert publisher is not None, "user never None due to check above"
+        subscription = db.session.query(subscriptions).filter_by(
+            subscriber_id=current_user.id,
+            publisher_id=publisher.id,
+        ).first()
+        return jsonify({"subscribed": subscription is not None})
+
+
     @subscription_ns.response(int(HTTPStatus.OK), "Successfully subscribed")
     @subscription_ns.response(int(HTTPStatus.CONFLICT), "Self subscription")
     @subscription_ns.response(int(HTTPStatus.UNAUTHORIZED), "Invalid token")
