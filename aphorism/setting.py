@@ -2,11 +2,12 @@ from abc import ABC
 from os import environ
 from pathlib import Path
 
+
 BASEDIR = Path(__file__).resolve().parent.parent
 
 
 class BaseSettings(ABC):
-    SECRET_KEY = environ["SECRET_KEY"]
+    JWT_SECRET_KEY = SECRET_KEY = environ["SECRET_KEY"]
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = (
@@ -18,6 +19,10 @@ class BaseSettings(ABC):
             db=environ["POSTGRES_DB"],
         )
     )
+
+    RESTX_MASK_SWAGGER = False  # noqa
+    UPLOAD_FOLDER = Path(environ["UPLOAD_DIRECTORY"]).resolve()
+    MAX_CONTENT_LENGTH = 200 * 1024 * 1024  # 200 MB
 
 
 class DevelopmentSettings(BaseSettings):

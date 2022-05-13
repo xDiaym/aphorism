@@ -27,7 +27,8 @@ COPY ./docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x '/entrypoint.sh' \
       && groupadd -r web && useradd -d /code -r -g web web \
       && chown web:web -R /code/ \
-      && chown web:web /
+      && mkdir -p /var/www/media/audio \
+      && chown web:web /var/www/media/audio
 
 # Copy only requirements, to cache them in docker layer
 COPY --chown=web:web ./poetry.lock ./pyproject.toml /code/
@@ -48,4 +49,3 @@ ENTRYPOINT ["/entrypoint.sh"]
 # Production only build
 FROM development_build AS production_build
 COPY --chown=web:web . /code
-

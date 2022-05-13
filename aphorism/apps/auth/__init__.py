@@ -2,6 +2,6 @@ import logging
 
 from flask_restx import Namespace
 
-user_ns = Namespace("user", description="User related operations.")
+auth_ns = Namespace("auth", description="auth related operations.")
 
 logger = logging.getLogger()
