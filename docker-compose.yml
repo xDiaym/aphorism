@@ -25,13 +25,14 @@ services:
           - "*"
 
       volumes:
-        - django-static:/var/www/django/static
+        - media:/var/www/media
       depends_on:
         - db
       networks:
         - webnet
       env_file: ./config/.env
       environment:
+        UPLOAD_DIRECTORY: /var/www/media
         FLASK_APP: manage.py
         FLASK_ENV: development
 
@@ -61,4 +62,4 @@ networks:
 
 volumes:
   pgdata:
-  django-static:
+  media:
